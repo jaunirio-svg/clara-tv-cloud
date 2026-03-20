@@ -9,57 +9,56 @@ app.get('/', (req, res) => {
         <head>
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>CLARA TV CLOUD - FINAL</title>
+            <title>CLARA TV CLOUD - ELITE</title>
             <style>
-                body { background: #000; color: #d4af37; font-family: 'Segoe UI', sans-serif; margin: 0; text-align: center; }
+                body { background: #000; color: #d4af37; font-family: sans-serif; margin: 0; text-align: center; }
                 header { background: #111; padding: 15px; border-bottom: 2px solid #d4af37; position: sticky; top: 0; z-index: 100; }
-                .main-video { width: 100%; max-width: 900px; margin: 15px auto; aspect-ratio: 16/9; background: #050505; border: 2px solid #222; box-shadow: 0 0 20px rgba(212,175,55,0.2); }
+                .screen { width: 100%; max-width: 850px; margin: 15px auto; aspect-ratio: 16/9; background: #050505; border: 2px solid #222; }
                 iframe { width: 100%; height: 100%; border: none; }
-                .container { max-width: 1000px; margin: auto; padding-bottom: 50px; }
-                .category { text-align: left; margin: 25px 15px 10px; border-left: 5px solid #d4af37; padding-left: 15px; font-weight: bold; text-transform: uppercase; font-size: 1.1rem; }
-                .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 12px; padding: 0 15px; }
-                button { background: #1a1a1a; color: white; border: 1px solid #333; padding: 12px 5px; border-radius: 8px; cursor: pointer; font-weight: 500; font-size: 0.8rem; transition: 0.3s; height: 55px; }
-                button:hover { background: #d4af37; color: black; border-color: white; transform: scale(1.05); }
-                .active { background: #d4af37 !important; color: black !important; font-weight: bold; }
+                .cat { text-align: left; margin: 20px 15px 5px; color: gold; font-weight: bold; border-left: 4px solid gold; padding-left: 10px; font-size: 0.9rem; }
+                .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 8px; padding: 0 15px; }
+                button { background: #1a1a1a; color: white; border: 1px solid #333; padding: 10px 5px; border-radius: 6px; cursor: pointer; font-size: 0.75rem; height: 50px; transition: 0.3s; }
+                button:hover { background: #d4af37; color: black; font-weight: bold; }
             </style>
         </head>
         <body>
-            <header><h1>⭐ CLARA TV <span style="color:white">CLOUD FINAL</span></h1></header>
+            <header><h1>⭐ CLARA TV <span style="color:white">CLOUD V14</span></h1></header>
             
-            <div class="main-video">
-                <iframe id="tv-frame" src="https://www.youtube.com/embed/9Auq9mYxFEE?autoplay=1" allowfullscreen allow="autoplay; encrypted-media"></iframe>
+            <div class="screen">
+                <iframe id="main-tv" src="https://www.youtube.com/embed/live_stream?channel=UC9UIsS5YI_6U2YI6I_6YI6A&autoplay=1" allowfullscreen allow="autoplay"></iframe>
             </div>
 
-            <div class="container">
-                <div class="category">🇧🇷 TV ABERTA BRASIL</div>
-                <div class="grid">
-                    <button onclick="change('https://www.youtube.com/embed/live_stream?channel=UC9UIsS5YI_6U2YI6I_6YI6A', this)">RECORD NEWS</button>
-                    <button onclick="change('https://www.youtube.com/embed/live_stream?channel=UC88K7W_o3E0x0vA-u0612MA', this)">JOVEM PAN</button>
-                    <button onclick="change('https://www.youtube.com/embed/live_stream?channel=UCvYyI6I6YI6I_6YI6A', this)">SBT (AO VIVO)</button>
-                    <button onclick="change('https://www.youtube.com/embed/live_stream?channel=UCv_S7T_fshI8vG6X6X_6YI6A', this)">BAND NEWS</button>
-                    <button onclick="change('https://www.youtube.com/embed/live_stream?channel=UC6uI1u3YI6I6YI6I_6YI6A', this)">TV CULTURA</button>
-                </div>
+            <div class="cat">📺 CANAIS ABERTOS (OFICIAIS)</div>
+            <div class="grid">
+                <button onclick="ch('UC9UIsS5YI_6U2YI6I_6YI6A')">RECORD NEWS</button>
+                <button onclick="ch('UC88K7W_o3E0x0vA-u0612MA')">JOVEM PAN</button>
+                <button onclick="ch('UCv_S7T_fshI8vG6X6X_6YI6A')">BAND JORNALISMO</button>
+                <button onclick="ch('UCvYyI6I6YI6I_6YI6A')">SBT AO VIVO</button>
+                <button onclick="ch('UC6uI1u3YI6I6YI6I_6YI6A')">TV CULTURA</button>
+                <button onclick="ch('UCvYyI6I6YI6I_6YI6A')">REDE TV (OFF)</button>
+            </div>
 
-                <div class="category">🎬 FILMES E SÉRIES 24H</div>
-                <div class="grid">
-                    <button onclick="change('https://www.youtube.com/embed/5_XEEpGEU_Y?autoplay=1', this)">FILMES DE AÇÃO</button>
-                    <button onclick="change('https://www.youtube.com/embed/9Auq9mYxFEE?autoplay=1', this)">CINE PRIMER</button>
-                    <button onclick="change('https://www.youtube.com/embed/live_stream?channel=UCvYyI6I6YI6I_6YI6A', this)">SÉRIES 24H</button>
-                </div>
+            <div class="cat">🎥 FILMES, DESENHOS E SÉRIES</div>
+            <div class="grid">
+                <button onclick="ext('https://www.youtube.com/embed/5_XEEpGEU_Y')">FILMES AÇÃO</button>
+                <button onclick="ext('https://www.youtube.com/embed/9Auq9mYxFEE')">CINE PRIMER</button>
+                <button onclick="ext('https://www.youtube.com/embed/GOfX4V_66v8')">DESENHOS 24H</button>
+                <button onclick="ext('https://www.youtube.com/embed/p9I2vS_K4Wc')">SÉRIES RETRÔ</button>
+            </div>
 
-                <div class="category">🌎 MUNDO (NOTÍCIAS)</div>
-                <div class="grid">
-                    <button onclick="change('https://www.youtube.com/embed/live_stream?channel=UCi8p6Zp6Yd9YmY6I_6YI6A', this)">EURONEWS (PT)</button>
-                    <button onclick="change('https://www.youtube.com/embed/live_stream?channel=UC_qS1U_fshI8vG6X6X_6YI6A', this)">RTP (PORTUGAL)</button>
-                    <button onclick="change('https://www.youtube.com/embed/live_stream?channel=UC16niRr50-MSBwiO3YWE3RA', this)">BBC NEWS</button>
-                </div>
+            <div class="cat">🌍 INTERNACIONAL</div>
+            <div class="grid">
+                <button onclick="ch('UCi8p6Zp6Yd9YmY6I_6YI6A')">EURONEWS PT</button>
+                <button onclick="ch('UC_qS1U_fshI8vG6X6X_6YI6A')">RTP PORTUGAL</button>
             </div>
 
             <script>
-                function change(url, btn) {
-                    document.getElementById('tv-frame').src = url;
-                    document.querySelectorAll('button').forEach(b => b.classList.remove('active'));
-                    if(btn) btn.classList.add('active');
+                function ch(id) {
+                    document.getElementById('main-tv').src = 'https://www.youtube.com/embed/live_stream?channel=' + id + '&autoplay=1';
+                    window.scrollTo({top: 0, behavior: 'smooth'});
+                }
+                function ext(url) {
+                    document.getElementById('main-tv').src = url + '?autoplay=1';
                     window.scrollTo({top: 0, behavior: 'smooth'});
                 }
             </script>
@@ -68,4 +67,4 @@ app.get('/', (req, res) => {
     `);
 });
 
-app.listen(PORT, () => console.log('🚀 CLARA TV FINAL ONLINE!'));
+app.listen(PORT, () => console.log('🚀 CLARA V14 ESTÁVEL!'));
