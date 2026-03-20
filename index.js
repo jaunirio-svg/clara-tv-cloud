@@ -9,47 +9,53 @@ app.get('/', (req, res) => {
         <head>
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>CLARA TV ULTRA</title>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/hls.js/1.4.10/hls.min.js"></script>
+            <title>CLARA TV - SISTEMA OPERACIONAL</title>
+            <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
             <style>
-                body { background: #000; color: #d4af37; font-family: sans-serif; margin: 0; display: flex; flex-direction: column; align-items: center; }
-                .header { width: 100%; background: #111; padding: 15px; border-bottom: 2px solid #d4af37; text-align: center; font-weight: bold; font-size: 1.2rem; }
-                .video-box { width: 95%; max-width: 800px; margin: 20px 0; aspect-ratio: 16/9; background: #050505; border: 2px solid #222; position: relative; }
-                video { width: 100%; height: 100%; }
-                .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; width: 95%; max-width: 800px; padding: 15px; }
-                button { background: #1a1a1a; color: gold; border: 1px solid gold; padding: 15px 5px; border-radius: 5px; cursor: pointer; font-size: 0.7rem; font-weight: bold; text-transform: uppercase; }
-                button:hover { background: gold; color: #000; }
-                .loading-msg { position: absolute; top: 45%; width: 100%; text-align: center; color: #555; z-index: -1; }
+                body { background: #000; color: #d4af37; font-family: sans-serif; margin: 0; padding: 0; display: flex; flex-direction: column; align-items: center; }
+                .header { width: 100%; background: #111; padding: 15px; border-bottom: 2px solid #d4af37; text-align: center; font-weight: bold; }
+                .player-box { width: 100%; max-width: 850px; aspect-ratio: 16/9; background: #050505; margin: 15px 0; border: 1px solid #222; }
+                video { width: 100%; height: 100%; display: block; }
+                .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; width: 95%; max-width: 850px; padding: 10px; }
+                button { background: #1a1a1a; color: #fff; border: 1px solid #d4af37; padding: 12px; border-radius: 4px; cursor: pointer; font-size: 0.75rem; font-weight: bold; text-transform: uppercase; }
+                button:hover { background: #d4af37; color: #000; }
+                .status-bar { font-size: 0.7rem; color: #666; margin-bottom: 10px; }
             </style>
         </head>
         <body>
-            <div class="header">⭐ CLARA TV <span style="color:white">ULTRA V26</span></div>
+            <div class="header">⭐ CLARA TV PRO - V27</div>
             
-            <div class="video-box">
-                <div class="loading-msg">CARREGANDO SINAL...</div>
+            <div class="player-box">
                 <video id="video" controls autoplay playsinline></video>
             </div>
+            <div class="status-bar">STATUS: SINAL ATIVO | MODO: HLS/ADAPTIVE</div>
 
             <div class="grid">
                 <button onclick="play('https://ebctv.akamaized.net/hls/live/2032080/tvbrasil/master.m3u8')">📺 TV BRASIL</button>
-                <button onclick="play('https://rtp-pull-clean.akamaized.net/liverepeater/smil:rtpi.smil/playlist.m3u8')">📺 RTP PORTUGAL</button>
                 <button onclick="play('https://recordnews-recordnews-1-br.samsung.wurl.com/manifest/playlist.m3u8')">📺 RECORD NEWS</button>
-                <button onclick="play('https://newstv-newstv-1-br.samsung.wurl.com/manifest/playlist.m3u8')">📺 JOVEM PAN</button>
-                <button onclick="play('https://samsung-samsungtvplus-3-br.samsung.wurl.com/manifest/playlist.m3u8')">🎬 FILMES 24H</button>
+                <button onclick="play('https://jovempan-jovempan-1-br.samsung.wurl.com/manifest/playlist.m3u8')">📺 JOVEM PAN</button>
+                <button onclick="play('https://samsung-samsungtvplus-3-br.samsung.wurl.com/manifest/playlist.m3u8')">🎬 SAMSUNG MOVIES</button>
+                <button onclick="play('https://rtp-pull-clean.akamaized.net/liverepeater/smil:rtpi.smil/playlist.m3u8')">🌍 RTP INTERNACIONAL</button>
             </div>
 
             <script>
-                var video = document.getElementById('video');
-                var hls = new Hls();
+                const video = document.getElementById('video');
+                let hls = new Hls({
+                    enableWorker: true,
+                    lowLatencyMode: true,
+                    backBufferLength: 90
+                });
 
                 function play(url) {
                     if (Hls.isSupported()) {
-                        hls.destroy(); // Limpa sinal anterior
-                        hls = new Hls();
+                        hls.detachMedia();
                         hls.loadSource(url);
                         hls.attachMedia(video);
-                        hls.on(Hls.Events.MANIFEST_PARSED, function() {
-                            video.play();
+                        hls.on(Hls.Events.MANIFEST_PARSED, () => {
+                            video.play().catch(() => {
+                                video.muted = true;
+                                video.play();
+                            });
                         });
                     } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
                         video.src = url;
@@ -57,12 +63,23 @@ app.get('/', (req, res) => {
                     }
                 }
 
-                // Iniciar automaticamente
-                window.onload = () => play('https://ebctv.akamaized.net/hls/live/2032080/tvbrasil/master.m3u8');
+                // Iniciar com Record News (Link mais estável)
+                window.onload = () => play('https://recordnews-recordnews-1-br.samsung.wurl.com/manifest/playlist.m3u8');
+                
+                // Recuperação de erro automática
+                hls.on(Hls.Events.ERROR, function (event, data) {
+                    if (data.fatal) {
+                        switch (data.type) {
+                            case Hls.ErrorTypes.NETWORK_ERROR: hls.startLoad(); break;
+                            case Hls.ErrorTypes.MEDIA_ERROR: hls.recoverMediaError(); break;
+                            default: hls.destroy(); break;
+                        }
+                    }
+                });
             </script>
         </body>
         </html>
     `);
 });
 
-app.listen(PORT, () => console.log('🚀 V26 ONLINE!'));
+app.listen(PORT, () => console.log('🚀 V27 - PRONTO PARA RODAR!'));
