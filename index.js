@@ -9,65 +9,49 @@ app.get('/', (req, res) => {
         <head>
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>CLARA TV PREMIUM</title>
-            <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+            <title>CLARA TV VIP</title>
             <style>
-                * { box-sizing: border-box; }
-                body { background: #000; color: gold; font-family: sans-serif; margin: 0; padding: 0; }
-                header { background: #111; padding: 15px; border-bottom: 2px solid gold; text-align: center; }
-                .player-container { width: 100%; max-width: 800px; margin: 20px auto; background: #050505; border: 1px solid #333; aspect-ratio: 16/9; display: flex; align-items: center; justify-content: center; }
-                video { width: 100%; height: 100%; outline: none; }
-                .controls { max-width: 800px; margin: auto; padding: 15px; }
-                .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; }
-                button { background: #1a1a1a; color: gold; border: 1px solid gold; padding: 15px; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 0.75rem; transition: 0.3s; }
-                button:hover { background: gold; color: black; }
-                .status { font-size: 0.8rem; color: #888; margin-bottom: 10px; }
+                body { background: #000; color: #d4af37; font-family: sans-serif; margin: 0; padding: 0; display: flex; flex-direction: column; align-items: center; }
+                header { width: 100%; background: #111; padding: 15px; border-bottom: 2px solid #d4af37; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.5); }
+                .video-wrapper { width: 95%; max-width: 800px; margin: 20px 0; background: #050505; border: 1px solid #333; aspect-ratio: 16/9; position: relative; }
+                video { width: 100%; height: 100%; background: #000; }
+                .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 10px; width: 95%; max-width: 800px; padding: 10px; }
+                button { background: #1a1a1a; color: #d4af37; border: 1px solid #d4af37; padding: 12px; border-radius: 5px; cursor: pointer; font-weight: bold; font-size: 0.7rem; text-transform: uppercase; transition: 0.2s; }
+                button:active { background: #d4af37; color: #000; }
+                .instrucao { color: #888; font-size: 0.75rem; margin-top: 5px; }
             </style>
         </head>
         <body>
-            <header><h1>⭐ CLARA TV <span style="color:white">PRO V24</span></h1></header>
+            <header><h1>⭐ CLARA TV <span style="color:white">V25</span></h1></header>
             
-            <div class="player-container">
-                <video id="video" controls autoplay muted></video>
+            <div class="video-wrapper">
+                <video id="tv" controls autoplay playsinline>
+                    <source id="source" src="https://ebctv.akamaized.net/hls/live/2032080/tvbrasil/master.m3u8" type="application/x-mpegURL">
+                    Seu navegador não suporta IPTV nativo.
+                </video>
             </div>
 
-            <div class="controls">
-                <div class="status">● SINAL IPTV DIRETO</div>
-                <div class="grid">
-                    <button onclick="play('https://ebctv.akamaized.net/hls/live/2032080/tvbrasil/master.m3u8')">TV BRASIL</button>
-                    <button onclick="play('https://rtp-pull-clean.akamaized.net/liverepeater/smil:rtpi.smil/playlist.m3u8')">RTP PORTUGAL</button>
-                    <button onclick="play('https://recordnews-recordnews-1-br.samsung.wurl.com/manifest/playlist.m3u8')">RECORD NEWS</button>
-                    <button onclick="play('https://newstv-newstv-1-br.samsung.wurl.com/manifest/playlist.m3u8')">JOVEM PAN</button>
-                    <button onclick="play('https://samsung-samsungtvplus-1-br.samsung.wurl.com/manifest/playlist.m3u8')">SAMSUNG MOVIES</button>
-                </div>
+            <div class="instrucao">Se o vídeo não abrir, clique no canal e **aperte o PLAY** no centro da tela.</div>
+
+            <div class="grid">
+                <button onclick="play('https://ebctv.akamaized.net/hls/live/2032080/tvbrasil/master.m3u8')">TV BRASIL</button>
+                <button onclick="play('https://rtp-pull-clean.akamaized.net/liverepeater/smil:rtpi.smil/playlist.m3u8')">RTP PORTUGAL</button>
+                <button onclick="play('https://recordnews-recordnews-1-br.samsung.wurl.com/manifest/playlist.m3u8')">RECORD NEWS</button>
+                <button onclick="play('https://newstv-newstv-1-br.samsung.wurl.com/manifest/playlist.m3u8')">JOVEM PAN</button>
+                <button onclick="play('https://samsung-samsungtvplus-1-br.samsung.wurl.com/manifest/playlist.m3u8')">SAMSUNG FILMES</button>
             </div>
 
             <script>
-                var video = document.getElementById('video');
-                var hls = new Hls();
-
                 function play(url) {
-                    if (Hls.isSupported()) {
-                        hls.loadSource(url);
-                        hls.attachMedia(video);
-                        hls.on(Hls.Events.MANIFEST_PARSED, function() {
-                            video.play();
-                            video.muted = false; // Tenta tirar o mute ao clicar
-                        });
-                    } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-                        video.src = url;
-                        video.addEventListener('canplay', function() {
-                            video.play();
-                        });
-                    }
+                    const v = document.getElementById('tv');
+                    v.src = url;
+                    v.play().catch(e => console.log("Clique no Play para iniciar"));
+                    window.scrollTo({top: 0, behavior: 'smooth'});
                 }
-
-                // Iniciar com TV Brasil
-                play('https://ebctv.akamaized.net/hls/live/2032080/tvbrasil/master.m3u8');
             </script>
         </body>
         </html>
     `);
 });
 
-app.listen(PORT, () => console.log('🚀 V24 ONLINE E ORGANIZADA!'));
+app.listen(PORT, () => console.log('🚀 V25 OPERACIONAL!'));
