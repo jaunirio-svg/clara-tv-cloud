@@ -9,55 +9,45 @@ app.get('/', (req, res) => {
         <head>
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>CLARA TV V28</title>
-            <script src="https://cdn.jsdelivr.net/npm/hls.js@1.4.10"></script>
+            <title>CLARA TV V29 - OFICIAL</title>
             <style>
-                body { background: #000; color: gold; font-family: sans-serif; margin: 0; display: flex; flex-direction: column; align-items: center; }
-                .player-box { width: 100%; max-width: 800px; aspect-ratio: 16/9; background: #111; margin-top: 10px; }
-                video { width: 100%; height: 100%; border-bottom: 2px solid gold; }
-                .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 10px; padding: 20px; width: 100%; max-width: 800px; }
-                button { background: #222; color: #fff; border: 1px solid gold; padding: 15px 5px; cursor: pointer; border-radius: 5px; font-weight: bold; font-size: 0.7rem; }
-                button:active { background: gold; color: #000; }
+                body { background: #000; color: gold; font-family: sans-serif; margin: 0; text-align: center; }
+                header { background: #111; padding: 15px; border-bottom: 2px solid gold; font-weight: bold; }
+                .video-container { width: 100%; max-width: 850px; margin: 15px auto; aspect-ratio: 16/9; background: #050505; border: 1px solid #333; }
+                iframe { width: 100%; height: 100%; border: none; }
+                .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 10px; padding: 20px; max-width: 850px; margin: auto; }
+                button { background: #1a1a1a; color: #fff; border: 1px solid gold; padding: 12px; border-radius: 5px; cursor: pointer; font-size: 0.75rem; font-weight: bold; }
+                button:hover { background: gold; color: #000; }
+                .aviso { font-size: 0.7rem; color: #777; margin-bottom: 10px; }
             </style>
         </head>
         <body>
-            <div class="player-box">
-                <video id="video" controls autoplay playsinline></video>
+            <header>⭐ CLARA TV <span style="color:white">V29 - SINAL REAL</span></header>
+            
+            <div class="video-container">
+                <iframe id="tela" src="https://www.youtube.com/embed/9UIsS5YI_6U?autoplay=1" allowfullscreen allow="autoplay"></iframe>
             </div>
+            
+            <div class="aviso">SE O CANAL NÃO ABRIR, CLIQUE NO BOTÃO E DEPOIS NO "PLAY" NO MEIO DA TELA</div>
 
             <div class="grid">
-                <button onclick="play('https://shls-recordnews-br-prod.akamaized.net/out/v1/70868798e401490280f33198083c2710/index.m3u8')">RECORD NEWS</button>
-                <button onclick="play('https://stmv1.paineltv.com.br/canaltv/canaltv/playlist.m3u8')">CANAL TV</button>
-                <button onclick="play('https://rtp-pull-clean.akamaized.net/liverepeater/smil:rtpi.smil/playlist.m3u8')">RTP PT</button>
-                <button onclick="play('https://tvbrasil-hls.ebc.com.br/hls/tvbrasil/index.m3u8')">TV BRASIL</button>
-                <button onclick="play('https://live-01-01-jovempan.noticias.v3.fabric.aws/v1/master.m3u8')">JOVEM PAN</button>
+                <button onclick="change('https://www.youtube.com/embed/9UIsS5YI_6U')">RECORD NEWS</button>
+                <button onclick="change('https://www.youtube.com/embed/9Auq9mYxFEE')">CINE PRIMER</button>
+                <button onclick="change('https://www.youtube.com/embed/UCvYyI6I6YI')">SBT AO VIVO</button>
+                <button onclick="change('https://www.youtube.com/embed/5_XEEpGEU_Y')">FILMES AÇÃO</button>
+                <button onclick="change('https://www.youtube.com/embed/88K7W_o3E0x')">JOVEM PAN</button>
+                <button onclick="change('https://www.youtube.com/embed/v_S7T_fshI8')">BAND NEWS</button>
             </div>
 
             <script>
-                var video = document.getElementById('video');
-                var hls = new Hls();
-
-                function play(url) {
-                    if (Hls.isSupported()) {
-                        hls.destroy();
-                        hls = new Hls();
-                        hls.loadSource(url);
-                        hls.attachMedia(video);
-                        hls.on(Hls.Events.MANIFEST_PARSED, function() {
-                            video.play();
-                        });
-                    } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-                        video.src = url;
-                        video.play();
-                    }
+                function change(url) {
+                    // Adiciona parâmetros de autoplay e mute para garantir o carregamento
+                    document.getElementById('tela').src = url + "?autoplay=1&mute=0";
                 }
-                
-                // Iniciar com Record News Direto da Akamai (mais resistente a bloqueios)
-                window.onload = () => play('https://shls-recordnews-br-prod.akamaized.net/out/v1/70868798e401490280f33198083c2710/index.m3u8');
             </script>
         </body>
         </html>
     `);
 });
 
-app.listen(PORT, () => console.log('🚀 V28 NO AR!'));
+app.listen(PORT, () => console.log('🚀 V29 ONLINE!'));
