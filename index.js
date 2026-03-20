@@ -9,7 +9,7 @@ app.get('/', (req, res) => {
         <head>
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>CLARA TV CLOUD - VIP</title>
+            <title>CLARA TV CLOUD - ELITE V16</title>
             <style>
                 body { background: #000; color: #d4af37; font-family: 'Segoe UI', sans-serif; margin: 0; padding: 0; text-align: center; }
                 header { background: linear-gradient(to bottom, #1a1a1a, #000); padding: 15px; border-bottom: 2px solid #d4af37; position: sticky; top: 0; z-index: 100; }
@@ -24,21 +24,21 @@ app.get('/', (req, res) => {
             </style>
         </head>
         <body>
-            <header><h1>⭐ CLARA <span style="color:white">TV CLOUD VIP</span></h1></header>
+            <header><h1>⭐ CLARA <span style="color:white">TV CLOUD V16</span></h1></header>
             
             <div class="main-screen">
-                <iframe id="tv-frame" src="https://www.youtube.com/embed/live_stream?channel=UC9UIsS5YI_6U2YI6I_6YI6A&autoplay=1" allowfullscreen allow="autoplay; encrypted-media"></iframe>
+                <iframe id="tv-frame" src="https://www.youtube.com/embed/live_stream?channel=UCvYyI6I6YI6I_6YI6A&autoplay=1" allowfullscreen allow="autoplay; encrypted-media"></iframe>
             </div>
 
             <div class="container">
-                <div class="category">📺 CANAIS ABERTOS DO BRASIL</div>
+                <div class="category">📺 CANAIS ABERTOS</div>
                 <div class="grid">
+                    <button onclick="ch('UCvYyI6I6YI6I_6YI6A', this)">SBT AO VIVO</button>
                     <button onclick="ch('UC9UIsS5YI_6U2YI6I_6YI6A', this)">RECORD NEWS</button>
                     <button onclick="ch('UC88K7W_o3E0x0vA-u0612MA', this)">JOVEM PAN NEWS</button>
-                    <button onclick="ch('UCvYyI6I6YI6I_6YI6A', this)">SBT AO VIVO</button>
                     <button onclick="ch('UCv_S7T_fshI8vG6X6X_6YI6A', this)">BAND JORNALISMO</button>
                     <button onclick="ch('UC6uI1u3YI6I6YI6I_6YI6A', this)">TV CULTURA</button>
-                    <button onclick="ch('UCv_S7T_fshI8vG6X6X_6YI6A', this)">REDE TV (ALT)</button>
+                    <button onclick="ch('UCup_6t8WpX5C0v_6X-6YI6A', this)">REDE TV (ALT)</button>
                 </div>
 
                 <div class="category">🎬 FILMES & SÉRIES 24H</div>
@@ -48,9 +48,10 @@ app.get('/', (req, res) => {
                     <button onclick="ext('https://www.youtube.com/embed/GOfX4V_66v8', this)">DESENHOS 24H</button>
                     <button onclick="ext('https://www.youtube.com/embed/p9I2vS_K4Wc', this)">SÉRIES RETRÔ</button>
                     <button onclick="ext('https://www.youtube.com/embed/Xm6_U6O6A_8', this)">TERROR 24H</button>
+                    <button onclick="ext('https://www.youtube.com/embed/qS1U_fshI8v', this)">FILMES CLÁSSICOS</button>
                 </div>
 
-                <div class="category">🌐 INTERNACIONAL</div>
+                <div class="category">🌐 MUNDO</div>
                 <div class="grid">
                     <button onclick="ch('UCi8p6Zp6Yd9YmY6I_6YI6A', this)">EURONEWS PT</button>
                     <button onclick="ch('UC_qS1U_fshI8vG6X6X_6YI6A', this)">RTP PORTUGAL</button>
@@ -64,7 +65,8 @@ app.get('/', (req, res) => {
                     updateBtn(btn);
                 }
                 function ext(url, btn) {
-                    document.getElementById('main-tv').src = url + '?autoplay=1';
+                    // Correção: Garantir que o ID do iframe seja o mesmo aqui (tv-frame)
+                    document.getElementById('tv-frame').src = url + '?autoplay=1';
                     updateBtn(btn);
                 }
                 function updateBtn(btn) {
@@ -78,4 +80,4 @@ app.get('/', (req, res) => {
     `);
 });
 
-app.listen(PORT, () => console.log('🚀 CLARA VIP ONLINE!'));
+app.listen(PORT, () => console.log('🚀 CLARA V16 NO AR!'));
