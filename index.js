@@ -9,40 +9,43 @@ app.get('/', (req, res) => {
         <head>
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>CLARA TV V29 - OFICIAL</title>
+            <title>CLARA TV V30</title>
             <style>
                 body { background: #000; color: gold; font-family: sans-serif; margin: 0; text-align: center; }
-                header { background: #111; padding: 15px; border-bottom: 2px solid gold; font-weight: bold; }
-                .video-container { width: 100%; max-width: 850px; margin: 15px auto; aspect-ratio: 16/9; background: #050505; border: 1px solid #333; }
+                .main { width: 100%; max-width: 800px; margin: auto; padding: 10px; }
+                .screen { width: 100%; aspect-ratio: 16/9; background: #111; border: 2px solid #333; margin-bottom: 20px; }
                 iframe { width: 100%; height: 100%; border: none; }
-                .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 10px; padding: 20px; max-width: 850px; margin: auto; }
-                button { background: #1a1a1a; color: #fff; border: 1px solid gold; padding: 12px; border-radius: 5px; cursor: pointer; font-size: 0.75rem; font-weight: bold; }
-                button:hover { background: gold; color: #000; }
-                .aviso { font-size: 0.7rem; color: #777; margin-bottom: 10px; }
+                .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; }
+                button { background: #222; color: gold; border: 1px solid gold; padding: 15px; border-radius: 5px; cursor: pointer; font-weight: bold; }
+                button:active { background: gold; color: #000; }
+                .status { color: #555; font-size: 0.8rem; margin: 10px; }
             </style>
         </head>
         <body>
-            <header>⭐ CLARA TV <span style="color:white">V29 - SINAL REAL</span></header>
-            
-            <div class="video-container">
-                <iframe id="tela" src="https://www.youtube.com/embed/9UIsS5YI_6U?autoplay=1" allowfullscreen allow="autoplay"></iframe>
+            <div class="main">
+                <h2>⭐ CLARA TV <span style="color:white">V30</span></h2>
+                <div class="screen">
+                    <iframe id="player" src="https://www.youtube.com/embed/9UIsS5YI_6U?autoplay=1&mute=1" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                </div>
+                <div class="status">SINAL VIA EMBED EXTERNO (ANTI-BLOQUEIO)</div>
+                <div class="grid">
+                    <button onclick="go('9UIsS5YI_6U')">RECORD NEWS</button>
+                    <button onclick="go('UCvYyI6I6YI')">SBT AO VIVO</button>
+                    <button onclick="go('88K7W_o3E0x')">JOVEM PAN</button>
+                    <button onclick="go('v_S7T_fshI8')">BAND NEWS</button>
+                    <button onclick="go('9Auq9mYxFEE')">CINE PRIMER</button>
+                </div>
+                <p style="font-size: 0.7rem; color: #444; margin-top: 20px;">DICA: Se a imagem não aparecer, clique no título do vídeo dentro da tela.</p>
             </div>
-            
-            <div class="aviso">SE O CANAL NÃO ABRIR, CLIQUE NO BOTÃO E DEPOIS NO "PLAY" NO MEIO DA TELA</div>
-
-            <div class="grid">
-                <button onclick="change('https://www.youtube.com/embed/9UIsS5YI_6U')">RECORD NEWS</button>
-                <button onclick="change('https://www.youtube.com/embed/9Auq9mYxFEE')">CINE PRIMER</button>
-                <button onclick="change('https://www.youtube.com/embed/UCvYyI6I6YI')">SBT AO VIVO</button>
-                <button onclick="change('https://www.youtube.com/embed/5_XEEpGEU_Y')">FILMES AÇÃO</button>
-                <button onclick="change('https://www.youtube.com/embed/88K7W_o3E0x')">JOVEM PAN</button>
-                <button onclick="change('https://www.youtube.com/embed/v_S7T_fshI8')">BAND NEWS</button>
-            </div>
-
             <script>
-                function change(url) {
-                    // Adiciona parâmetros de autoplay e mute para garantir o carregamento
-                    document.getElementById('tela').src = url + "?autoplay=1&mute=0";
+                function go(id) {
+                    var p = document.getElementById('player');
+                    // Tenta carregar como canal de stream ou vídeo comum
+                    if(id.length > 11) {
+                        p.src = "https://www.youtube.com/embed/live_stream?channel=" + id + "&autoplay=1";
+                    } else {
+                        p.src = "https://www.youtube.com/embed/" + id + "?autoplay=1";
+                    }
                 }
             </script>
         </body>
@@ -50,4 +53,4 @@ app.get('/', (req, res) => {
     `);
 });
 
-app.listen(PORT, () => console.log('🚀 V29 ONLINE!'));
+app.listen(PORT, () => console.log('🚀 V30 NO AR!'));
