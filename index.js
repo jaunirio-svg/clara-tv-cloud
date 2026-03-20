@@ -9,47 +9,32 @@ app.get('/', (req, res) => {
         <head>
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>CLARA TV CLOUD V11</title>
-            <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
-            <script src="https://cdn.jsdelivr.net/npm/dplayer@latest/dist/DPlayer.min.js"></script>
+            <title>CLARA TV - TESTE DE SINAL</title>
             <style>
-                body { background: #000; color: gold; font-family: sans-serif; margin: 0; padding: 0; text-align: center; }
+                body { background: #000; color: gold; font-family: sans-serif; text-align: center; margin: 0; }
                 header { background: #111; padding: 15px; border-bottom: 2px solid gold; }
-                #dplayer { width: 100%; max-width: 800px; margin: 15px auto; aspect-ratio: 16/9; background: #000; }
-                .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 10px; padding: 20px; max-width: 900px; margin: auto; }
-                button { background: #222; color: gold; border: 1px solid gold; padding: 12px; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 0.7rem; text-transform: uppercase; }
-                button:active { background: gold; color: #000; }
-                .aviso { background: #d4af37; color: #000; padding: 5px; font-size: 0.8rem; font-weight: bold; }
+                .video-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 800px; margin: 20px auto; border: 2px solid #333; }
+                .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+                .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; padding: 20px; max-width: 900px; margin: auto; }
+                button { background: #222; color: gold; border: 1px solid gold; padding: 15px; cursor: pointer; font-weight: bold; border-radius: 8px; }
             </style>
         </head>
         <body>
-            <header><h1>⭐ CLARA TV <span style="color:white">CLOUD V11</span></h1></header>
-            <div class="aviso">⚠️ TOQUE NO VÍDEO PARA LIBERAR O SOM APÓS CARREGAR</div>
+            <header><h1>⭐ CLARA TV <span style="color:white">TESTE DE FORÇA</span></h1></header>
             
-            <div id="dplayer"></div>
+            <div class="video-container">
+                <iframe id="tv-frame" src="https://www.youtube.com/embed/live_stream?channel=UC9UIsS5YI_6U2YI6I_6YI6A" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+            </div>
 
             <div class="grid">
-                <button onclick="play('https://ebctv.akamaized.net/hls/live/2032080/tvbrasil/master.m3u8')">📺 TV Brasil</button>
-                <button onclick="play('https://rtp-pull-clean.akamaized.net/liverepeater/smil:rtpi.smil/playlist.m3u8')">🌍 RTP PORTUGAL</button>
-                <button onclick="play('https://service-stitcher.clusters.pluto.tv/v1/stitch/embed/ch/5692795899990b790a1c360c/master.m3u8')">🎬 PLUTO CINE</button>
-                <button onclick="play('https://dwstream72-lh.akamaihd.net/i/dwstream72_1@123556/master.m3u8')">🌍 DW (Alemanha)</button>
+                <button onclick="change('https://www.youtube.com/embed/9Auq9mYxFEE?autoplay=1')">📺 CANAL TESTE 1</button>
+                <button onclick="change('https://www.youtube.com/embed/5_XEEpGEU_Y?autoplay=1')">📺 CANAL TESTE 2</button>
+                <button onclick="change('https://www.youtube.com/embed/live_stream?channel=UCi8p6Zp6Yd9YmY6I_6YI6A')">📺 TESTE AO VIVO</button>
             </div>
 
             <script>
-                const dp = new DPlayer({
-                    container: document.getElementById('dplayer'),
-                    autoplay: false,
-                    video: {
-                        url: 'https://ebctv.akamaized.net/hls/live/2032080/tvbrasil/master.m3u8',
-                        type: 'hls'
-                    }
-                });
-
-                function play(url) {
-                    dp.switchVideo({ url: url, type: 'hls' });
-                    dp.play();
-                    // Garante que o som será liberado no clique
-                    dp.video.muted = false;
+                function change(url) {
+                    document.getElementById('tv-frame').src = url;
                 }
             </script>
         </body>
@@ -57,4 +42,4 @@ app.get('/', (req, res) => {
     `);
 });
 
-app.listen(PORT, () => console.log('🚀 CLARA V11 NO AR!'));
+app.listen(PORT, () => console.log('🚀 TESTE DE FORÇA ONLINE!'));
