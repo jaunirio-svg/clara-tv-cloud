@@ -1,18 +1,49 @@
-
 <!DOCTYPE html>
-<html>
+<html lang="pt-br">
 <head>
-    <title>CLARA TV V47</title>
-    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
-    <style>body{background:#000;margin:0;}video{width:100%;aspect-ratio:16/9;background:#000;}</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CLARA TV CLOUD</title>
+    <style>
+        body { background-color: #000; color: #fff; font-family: sans-serif; text-align: center; margin: 0; padding-bottom: 50px; }
+        header { background: #1a1a1a; padding: 20px; border-bottom: 2px solid #ffd700; margin-bottom: 20px; }
+        h1 { color: #ffd700; margin: 0; }
+        .video-box { width: 90%; max-width: 800px; margin: auto; border: 2px solid #333; aspect-ratio: 16/9; background: #111; }
+        iframe { width: 100%; height: 100%; border: none; }
+        .menu { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 20px; padding: 0 10px; }
+        button { 
+            background: #222; color: #ffd700; border: 1px solid #ffd700; 
+            padding: 15px 20px; cursor: pointer; font-weight: bold; border-radius: 5px;
+            min-width: 140px;
+        }
+        button:hover { background: #ffd700; color: #000; }
+        .section-title { color: #ffd700; margin-top: 30px; font-size: 1.2em; text-transform: uppercase; }
+    </style>
 </head>
 <body>
-    <video id="video" controls autoplay playsinline muted></video>
-    <script>
-        var v=document.getElementById('video');
-        var h=new Hls();
-        h.loadSource('https://shls-recordnews-br-prod.akamaized.net/out/v1/70868798e401490280f33198083c2710/index.m3u8');
-        h.attachMedia(v);
-    </script>
+
+<header>
+    <h1>CLARA TV CLOUD</h1>
+</header>
+
+<div class="video-box">
+    <iframe id="tela" src="https://www.youtube.com/embed/live_stream?channel=UCid6Hia93_v4X9m9YvI4YmQ" allowfullscreen></iframe>
+</div>
+
+<p class="section-title">📺 Canais Disponíveis</p>
+<div class="menu">
+    <button onclick="mudar('UCid6Hia93_v4X9m9YvI4YmQ')">RECORD NEWS</button>
+    <button onclick="mudar('UC9unv6_6pYfGZ_3O_L8zV2A')">SBT AO VIVO</button>
+    <button onclick="mudar('UCoa-D_VfMkFrCYpX_I-C33g')">BAND JORNALISMO</button>
+    <button onclick="mudar('UC867ZSTZksV6itUOC68mbeA')">CNN BRASIL</button>
+    <button onclick="mudar('UC_VfS_Yf_z9JqO0_vVv-Iaw')">JOVEM PAN NEWS</button>
+</div>
+
+<script>
+    function mudar(id) {
+        document.getElementById('tela').src = "https://www.youtube.com/embed/live_stream?channel=" + id + "&autoplay=1";
+    }
+</script>
+
 </body>
 </html>
